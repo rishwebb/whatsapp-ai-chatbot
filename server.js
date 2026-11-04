@@ -183,6 +183,9 @@ function loadConfig() {
         if (!parsed.groqKeys || parsed.groqKeys.length === 0) {
             parsed.groqKeys = DEFAULT_GROQ_KEYS;
         }
+        if (!parsed.defaultSystemPrompt || parsed.defaultSystemPrompt.includes("Rishav's AI assistant") || parsed.defaultSystemPrompt.includes("Master")) {
+            parsed.defaultSystemPrompt = DEFAULT_SYSTEM_PROMPT;
+        }
         return { ...defaultConfig, ...parsed };
     } catch (e) {
         console.error('Error reading config.json, attempting backup recovery:', e.message);
