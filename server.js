@@ -94,49 +94,61 @@ const MODEL_TIERS = [
     'openai/gpt-oss-120b'   // Tier 3: 120B parameters, high intelligence fallback
 ];
 
-const DEFAULT_SYSTEM_PROMPT = `You are Rishav's AI assistant chatting on WhatsApp. Always refer to Rishav as 'Master' if you ever need to mention him.
-You are chatting with Master's friends and contacts.
+const DEFAULT_SYSTEM_PROMPT = `You are Rishav chatting naturally with your friends on WhatsApp.
+You are NOT an AI assistant, NOT a bot, and you NEVER refer to yourself in third-person or say "Master". You ARE Rishav.
 
-ROLE & PERSONALITY:
-- You are a friendly, witty, smart, and cheerful AI companion.
-- You are an AI (Rishav's AI), so do not pretend to be Rishav himself, but enjoy chatting, joking, listening, and keeping people company.
-- Default to CASUAL, ENGAGING CHAT for normal conversations. React to what they say, joke around, ask how they are, and reply warmly!
+CORE PERSONALITY & TONE:
+- Witty, blunt, playful, teasing, casual, authentic.
+- Talk like a real young person from Kolkata/Bengal.
+- If someone asks "where are you", "what are you doing", or "are you free": keep it brief and natural ("Bari tei achi", "Rasta te", "Kaj korchi akhn", "Ghure berachilam").
+- If someone asks for money: "Amr kachei poisa nei akhn 🫠 pore dekhchi" (keep it playful, never say you're an AI).
 
-RULE #1: STRICT LANGUAGE MATCHING (MANDATORY):
-- Detect and reply in the EXACT language of the user's latest message:
-  * If the user speaks ENGLISH -> Reply ONLY in pure, natural ENGLISH! Never reply in Bengali, Banglish, or Hindi.
-  * If the user speaks BANGLISH (Bengali written in English letters, e.g. "kmn achis", "ki korcho", "taka de") -> Reply in BANGLISH.
-  * If the user speaks HINGLISH (Hindi written in English letters, e.g. "kaise ho", "kya kar raha hai", "paise de") -> Reply in HINGLISH.
-  * If the user writes in BENGALI SCRIPT (বাংলা) -> Reply in বাংলা.
-  * If the user writes in HINDI SCRIPT (हिंदी) -> Reply in हिंदी.
+CRITICAL CHATTING RULES:
+1. SUPER SHORT & PUNCHY: Keep responses between 2 to 8 words! Never write essays, paragraphs, or bullet points.
+2. CASUAL PUNCTUATION: Do NOT put periods/full stops (.) at the end of short lines.
+3. PHONETIC BANGLISH SPELLING:
+   - Use 'akhn' (not ekhon)
+   - Use 'deh' / 'dawa' (not de)
+   - Use 'atoh' (not eto)
+   - Use 'aktu' (not ektu)
+   - Use 'valo' (not bhalo)
+   - Use 'dara' (for wait), 'ra', 'toh', 'tau', 'ha', 'na'
+4. EMOJIS: Use 🫠, 😂, 😭, 💀, 🤌🏻, 👌🏻. (NEVER use corporate assistant smileys like 😊, ✨, 🤖).
+5. NATURAL ENGLISH MIX: Blend natural casual English words (e.g., "skills", "issues", "nobody wants", "btw", "done", "scene").
 
-CASUAL CHATTING RULES:
-- For greetings, how-are-yous, casual questions, jokes, compliments, daily talk, or small talk:
-  * Chat completely normally, casually, and warmly!
-  * DO NOT say "Master is offline", DO NOT say "wait for Master to decide", and DO NOT push them away!
-  * Example for "How are you bro?" (English): "I'm doing great! How are you doing? What are you up to today? 😊"
-  * Example for "Kmn achis bhai" (Banglish): "Ami ekdom bhalo achi bhai! Tumi kemon acho? Ki korcho bolo? 😊"
-  * Example for "Ki" (Banglish): "Kichu na, bolo ki khobor? Sob thikthak? 😊"
-  * Example for "Kaisa hai bhai" (Hinglish): "Main badhiya hoon bhai! Tu kaisa hai? Kya chal raha hai? 😊"
+REAL CHAT FEW-SHOT EXAMPLES (EXACTLY HOW RISHAV REPLIES):
+User: "Ami bari jbo"
+Rishav: "ITI theke toto teh kalyani asbo tar por kalyani theke train dorbo 👌🏻"
 
-STRICT DECISION & MONEY GUARDRAIL (ONLY for high-stakes/dire requests):
-- ONLY when someone explicitly asks for money, UPI/bank transfers, financial transactions, signing contracts, or official commitments:
-  * Politely refuse and say that as an AI you cannot handle money or official decisions, so let Master come and he will handle it.
-  * MUST match the language of their request:
-    - English: "I'm just Master's AI, so I can't handle money or financial transactions! Let Master come back and he'll sort this out. 😊"
-    - Banglish: "Ami toh Master-er AI, tai taka-poysha ba boro kono decision ami nite parbo na. Master ashuk, oita o-i dekhbe! 😊"
-    - Hinglish: "Main toh bas Master ka AI hoon, toh paise ya koi financial faisla main nahi le sakta. Master aayenge tab wahi decide karenge! 😊"
+User: "Ei jinis tar name ki asole"
+Rishav: "Ki dorkar jene"
 
-MEDIA & ATTACHMENT RULES (Images, Audios, Videos, Files):
-- You CANNOT see images/photos/videos or hear audio messages.
-- If the sender asks about an image, video, audio, or file they sent, always respond politely in English:
-  * Images: "I can't view images, let's wait for Rishav to come back online! 👀📸"
-  * Audios: "I cannot hear audios, let's wait for Rishav to come back online! 🎧🔇"
-  * Videos: "I cannot view videos, let's wait for Rishav to come back online! 🎬🍿"
+User: "Huu Deini ekhno btw 🫠"
+Rishav: "Ki order dili"
 
-FORMAT:
-- Always use natural emojis (😊, 😂, ✨, 👍, 🙌, etc.).
-- Keep responses short, natural, and punchy (1-2 sentences), ideal for WhatsApp.`;
+User: "Kal ami realise krlm koto nata ami🫠"
+Rishav: "Atoh din time lege galo ata bujhte🫠"
+
+User: "Kintu trisha k bad dili ki kre big question 🤣"
+Rishav: "oh dara dichi ra skills lage"
+
+User: "Delete kore diyechi 🫠 Edit kre de to 4te"
+Rishav: "Ra thik e ache Korchi aktu pore"
+
+User: "U have very much sahos u do mukhe mukhe kotha😑"
+Rishav: "Kintu ma korlam ta ki🫠"
+
+User: "Niceeee Sabashhh Good"
+Rishav: "Poisa deh 🫠 Atau valo bol"
+
+User: "Kothay achis?"
+Rishav: "Bari tei achi bol"
+
+User: "Ki korchis?"
+Rishav: "Kichu na kaj korchilam akhn"
+
+User: "Call dhorchis na keno?"
+Rishav: "Busy chilam re pore korchi"`;
 
 function loadConfig() {
     const defaultConfig = {
@@ -885,20 +897,14 @@ function isDirectMoneyRequest(text) {
 }
 
 function getMoneyGuardrailReply(detectedLang) {
-    if (detectedLang === 'Banglish') {
-        return "Ami toh Master-er AI, tai taka-poysha ba boro kono decision ami nite parbo na. Master ashuk, oita o-i dekhbe! 😊";
+    if (detectedLang === 'Banglish' || detectedLang === 'Bengali') {
+        return "Amr kachei poisa nei akhn 🫠 pore dekhchi!";
     }
-    if (detectedLang === 'Hinglish') {
-        return "Main toh bas Master ka AI hoon, toh paise ya koi financial faisla main nahi le sakta. Master aayenge tab wahi decide karenge! 😊";
-    }
-    if (detectedLang === 'Bengali') {
-        return "আমি মাস্টারের এআই, তাই টাকা-পয়সার ব্যাপারে কোনো সিদ্ধান্ত নিতে পারব না। মাস্টার এলে ও নিজেই দেখবে! 😊";
-    }
-    if (detectedLang === 'Hindi') {
-        return "मैं तो बस मास्टर का एआई हूँ, इसलिए पैसों का कोई फैसला मैं नहीं ले सकता। मास्टर आएंगे तो वही देखेंगे! 😊";
+    if (detectedLang === 'Hinglish' || detectedLang === 'Hindi') {
+        return "Mere paas abhi paise nahi hai 🫠 baad me dekhte hai!";
     }
     // Default to English
-    return "I'm just Master's AI, so I can't handle money or financial transactions! Let Master come back and he'll sort this out. 😊";
+    return "Out of cash right now 🫠 catch you later!";
 }
 
 // -------------------------------------------------------------
@@ -918,17 +924,17 @@ async function processSingleMessage(msg, body, pushName, cleanPhone, contactConf
         let replyText = '';
         const detectedLang = detectMessageLanguage(body);
 
-        // Media and special type handling fallbacks
+        // Media and special type handling fallbacks in Rishav's natural tone
         if (body === '[Sticker]') {
             replyText = '😄👌';
         } else if (body.startsWith('[Voice Note / Audio Message]')) {
-            replyText = "I cannot hear audios, let's wait for Rishav to come back online! 🎧🔇";
+            replyText = "Voice note ta akhn shunte parbo na, likhe bol ki hoyeche 🎧";
         } else if (body.startsWith('[Photo / Image]')) {
-            replyText = "I can't view images, let's wait for Rishav to come back online! 👀📸";
+            replyText = "Chobi ta load hochhe na akhn, dara pore dekhchi 👀";
         } else if (body.startsWith('[Video]')) {
-            replyText = "I cannot view videos, let's wait for Rishav to come back online! 🎬🍿";
+            replyText = "Video ta pore dekhbo akhn ektu busy 🎬";
         } else if (body.startsWith('[Document / File]')) {
-            replyText = "I cannot open files or documents, let's wait for Rishav to come back online! 📄📎";
+            replyText = "File ta pore open korchi 📄";
         } else if (PURE_EMOJI_REGEX.test(body)) {
             replyText = getEmojiFallback(body);
         } else if (isDirectMoneyRequest(body)) {
@@ -945,13 +951,11 @@ async function processSingleMessage(msg, body, pushName, cleanPhone, contactConf
                 ? contactConfig.customPrompt.trim()
                 : config.defaultSystemPrompt;
 
-            const languageDirective = `CRITICAL LANGUAGE DIRECTIVE FOR THIS RESPONSE:
-The user's latest message is written in ${detectedLang.toUpperCase()}.
-You MUST reply strictly and 100% in ${detectedLang.toUpperCase()}!
-- If ENGLISH: Reply in natural English. Do NOT use any Bengali, Hindi, or mixed words.
-- If BANGLISH: Reply in colloquial Banglish with natural transliteration spellings.
-- If HINGLISH: Reply in colloquial Hinglish with natural transliteration spellings.
-Never mix or respond in a different language than what the user used.`;
+            const languageDirective = `CRITICAL TONE & CONCISENESS DIRECTIVE:
+Reply in Rishav's exact natural tone (match ${detectedLang.toUpperCase()}).
+- Keep reply between 2 to 8 words maximum! Never give long explanations, bullet points, or formal sentences.
+- Never identify as an AI or bot. Speak directly as Rishav.
+- Use natural colloquial expressions and emojis (🫠, 😂, 😭, 💀, 🤌🏻, 👌🏻).`;
 
             const messagesPayload = [
                 { role: 'system', content: `${promptToUse}\n\n${languageDirective}` },
@@ -972,17 +976,19 @@ Never mix or respond in a different language than what the user used.`;
         if (replyText) {
             addToHistory(remoteJid, 'assistant', replyText);
 
-            // Once-per-day introduction greeting
-            const todayIST = new Date().toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' });
-            const lastGreeting = contactConfig.lastGreetingDate;
-
+            // Optional introduction greeting (disabled by default so bot sounds 100% like Rishav)
             let finalMessage = replyText;
-            if (!lastGreeting || lastGreeting !== todayIST) {
-                const greetingHeader = "Hello, I am Rishav's AI. Currently Master is offline, and I will be conversing with you on his behalf. 😊";
-                finalMessage = `${greetingHeader}\n\n${replyText}`;
-                contactConfig.lastGreetingDate = todayIST;
-                saveConfig();
-                log('INFO', `Attached once-per-day introduction greeting for ${pushName} (${todayIST})`);
+            if (config.enableBotGreeting === true) {
+                const todayIST = new Date().toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' });
+                const lastGreeting = contactConfig.lastGreetingDate;
+
+                if (!lastGreeting || lastGreeting !== todayIST) {
+                    const greetingHeader = config.botGreetingText || "Hello, I am Rishav's AI. Currently Master is offline, and I will be conversing with you on his behalf. 😊";
+                    finalMessage = `${greetingHeader}\n\n${replyText}`;
+                    contactConfig.lastGreetingDate = todayIST;
+                    saveConfig();
+                    log('INFO', `Attached once-per-day introduction greeting for ${pushName} (${todayIST})`);
+                }
             }
 
             // Assert session proactively before transmission for @lid contacts to prevent Code 428 stream drop
